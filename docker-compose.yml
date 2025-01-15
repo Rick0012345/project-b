@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  project-b:
+    hostname: "${HOSTNAME}"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /usr/src/project
+    command: >
+      bash -c "
+        curl -fsSL https://deb.nodesource.com/setup_21.x | bash - &&
+        apt-get install -y nodejs &&
+        python manage.py runserver ${HOSTNAME}:${PORT}
+      "
+    volumes:
+      - ./project/:/usr/src/project
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - PYTHONUNBUFFERED=True
+      - OAUTHLIB_INSECURE_TRANSPORT=False
+      - DEBUG=true
+    env_file:
+      .env
+    networks:
+      - seco-network
+
+networks:
+    seco-network:
+        external: true
