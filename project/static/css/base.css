@@ -1,0 +1,12 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #11494d;
+}
+
+h2{
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
